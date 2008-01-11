@@ -1,7 +1,7 @@
 # syslog-ng
 # (copyleft) immerda.ch
 
-modules_dir { "syslog-ng": }
+#modules_dir { "syslog-ng": }
 
 class syslog-ng {
 
