@@ -19,8 +19,8 @@ class syslog-ng {
         source => "puppet://$servername/syslog-ng/syslog-ng.conf",
         ensure => file,
         force => true,
-        mode => 0644, owner => root, group => 0;
-
+        mode => 0644, owner => root, group => 0,
+        require => Package['syslog-ng'],
     }
 
 	package { metalog:
