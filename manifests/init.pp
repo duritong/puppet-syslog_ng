@@ -16,7 +16,7 @@ class syslog-ng {
 	service { syslog-ng: ensure  => running, enable  => true, }
 
     file { "/etc/syslog-ng/syslog-ng.conf":
-        source => "puppet://$server/syslog-ng/syslog-ng.conf",
+        source => "puppet://$server/modules/syslog-ng/syslog-ng.conf",
         ensure => file,
         force => true,
         mode => 0644, owner => root, group => 0,
