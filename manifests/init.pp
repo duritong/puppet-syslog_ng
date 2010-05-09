@@ -1,19 +1,20 @@
 # syslog-ng
 # (copyleft) immerda.ch
 
-#modules_dir { "syslog-ng": }
-
 class syslog-ng {
-
-        package { 'syslog-ng':
-                ensure => present,
-                category => $operatingsystem ? {
-                        gentoo => 'app-admin',
-                        default => '',
-                },
-        }
+    package { 'syslog-ng':
+        ensure => present,
+        category => $operatingsystem ? {
+          gentoo => 'app-admin',
+          default => '',
+        },
+    }
 	
-	service { syslog-ng: ensure  => running, enable  => true, }
+	  service { syslog-ng:
+        ensure  => running,
+        enable  => true,
+        require => Package['syslog-ng'],
+    }
 
     file { "/etc/syslog-ng/syslog-ng.conf":
         source => "puppet://$server/modules/syslog-ng/syslog-ng.conf",
@@ -21,19 +22,7 @@ class syslog-ng {
         force => true,
         mode => 0644, owner => root, group => 0,
         require => Package['syslog-ng'],
+	      notify => Service['syslog-ng'],
     }
 
-	package { metalog:
-                name => $operatingsystem ? {
-                        centos => 'metalog',
-                        default => 'metalog',
-                },
-                category => $operatingsystem ? {
-                        gentoo => 'app-admin',
-                        default => '',
-                },
-                ensure => absent,
-                require => Package[syslog-ng],
-        }
 }
-
